@@ -2,12 +2,12 @@ package live.cilicili.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import live.cilicili.request.UserRegisterRequest;
 import live.cilicili.service.IFileService;
+import live.cilicili.service.IUserService;
 import live.cilicili.util.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -22,7 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     @Autowired
-    IFileService iFileService;
+    private IFileService iFileService;
+
+    @Autowired
+    private IUserService iUserService;
 
     @ApiOperation("用户头像上传")
     @RequestMapping("/upload")
@@ -30,4 +33,11 @@ public class UserController {
         iFileService.uploadUserAvatar(file);
         return JsonData.buildSuccess();
     }
+
+    @ApiOperation("用户注册")
+    @RequestMapping("register")
+    public JsonData userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
+        return iUserService.register(userRegisterRequest);
+    }
+
 }

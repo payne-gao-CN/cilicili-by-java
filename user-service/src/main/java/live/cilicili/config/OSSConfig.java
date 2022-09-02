@@ -26,7 +26,7 @@ public class OSSConfig {
     private String bucketName;
 
     @Bean
-    public OSS getOssClient(){
+    public OSS initOssClient(){
         //创建OSS客户端对象
         return new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }

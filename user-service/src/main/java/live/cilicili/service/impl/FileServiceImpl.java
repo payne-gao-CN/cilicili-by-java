@@ -18,10 +18,10 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     public String uploadUserAvatar(MultipartFile file) {
-        OSS ossClient = ossConfig.getOssClient();
+        OSS ossClient = ossConfig.initOssClient();
         String originalFilename = file.getOriginalFilename();
         try {
-            PutObjectResult putObjectResult = ossClient.putObject(ossConfig.getBucketName(), originalFilename, file.getInputStream());
+            ossClient.putObject(ossConfig.getBucketName(), originalFilename, file.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {
