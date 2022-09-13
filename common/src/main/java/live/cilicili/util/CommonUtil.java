@@ -1,19 +1,27 @@
 package live.cilicili.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * @authoer: payne
  * @createDate: 2022/9/1
  * @description:
  */
+@Slf4j
 public class CommonUtil {
     private static final String ALL_CATCH_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     /**
-     * 获取手机验证码随机数
+     * 获取验证码随机数
      * @param length 长度
-     * @return 返回的手机验证码
+     * @return 返回的验证码
      */
     public static String getRandomCode(int length){
         String source = "0123456789";
@@ -45,5 +53,40 @@ public class CommonUtil {
             stringBuilder.append(ALL_CATCH_NUM.charAt(random.nextInt(ALL_CATCH_NUM.length())));
         }
         return stringBuilder.toString();
+    }
+
+
+    /**
+     * 响应json数据给前端
+     * @param response
+     * @param obj
+     */
+    public static void sendJsonMessage(HttpServletResponse response, Object obj){
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter writer = null;
+
+        try {
+            writer = response.getWriter();
+            writer.println(objectMapper.writeValueAsString(obj));
+            response.flushBuffer();
+        } catch (IOException e) {
+            log.warn("响应json数据给前端异常");
+        }finally {
+            if (writer != null){
+                writer.close();
+            }
+        }
+
+
+    }
+
+    /**
+     * 生成UUID
+     * @return 32位随机字符串
+     */
+    public static String generateUUID(){
+        return UUID.randomUUID().toString().replace("-","").substring(0,32);
     }
 }

@@ -29,19 +29,10 @@ public class LoginUser {
     private String userName;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
      * 昵称
      */
     private String nickname;
 
-    /**
-     * 状态
-     */
-    private String status;
 
     /**
      * 用户头像

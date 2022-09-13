@@ -2,6 +2,7 @@ package live.cilicili.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import live.cilicili.request.UserLoginRequest;
 import live.cilicili.request.UserRegisterRequest;
 import live.cilicili.service.IFileService;
 import live.cilicili.service.IUserService;
@@ -38,6 +39,12 @@ public class UserController {
     @RequestMapping("register")
     public JsonData userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
         return iUserService.register(userRegisterRequest);
+    }
+
+    @ApiOperation("用户登录")
+    @RequestMapping("login")
+    public JsonData userLogin(@RequestBody UserLoginRequest userLoginRequest){
+        return iUserService.login(userLoginRequest);
     }
 
 }
