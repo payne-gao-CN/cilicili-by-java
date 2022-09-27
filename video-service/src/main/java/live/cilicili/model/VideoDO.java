@@ -61,6 +61,12 @@ public class VideoDO implements Serializable {
     private String url;
 
     /**
+     * 地址
+     */
+    @TableField("upuser")
+    private String upuser;
+
+    /**
      * 创建时间
      */
     @TableField("created_at")
