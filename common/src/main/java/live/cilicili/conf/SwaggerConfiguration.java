@@ -1,4 +1,4 @@
-package live.cilicili.config;
+package live.cilicili.conf;
 
 public class SwaggerConfiguration {
 }

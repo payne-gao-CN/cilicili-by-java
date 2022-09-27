@@ -31,18 +31,19 @@ public class UserController {
     @ApiOperation("用户头像上传")
     @RequestMapping("/upload")
     public JsonData upLoadImg(@RequestPart("file") MultipartFile file){
-        iFileService.uploadUserAvatar(file);
+        String avatarUrl = iFileService.uploadUserAvatar(file);
+        iUserService.uploadUserAvatar(avatarUrl);
         return JsonData.buildSuccess();
     }
 
     @ApiOperation("用户注册")
-    @RequestMapping("register")
+    @RequestMapping("/register")
     public JsonData userRegister(@RequestBody UserRegisterRequest userRegisterRequest){
         return iUserService.register(userRegisterRequest);
     }
 
     @ApiOperation("用户登录")
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public JsonData userLogin(@RequestBody UserLoginRequest userLoginRequest){
         return iUserService.login(userLoginRequest);
     }

@@ -14,4 +14,6 @@ public interface IUserService {
     JsonData register(UserRegisterRequest userRegisterRequest);
 
     JsonData login(UserLoginRequest userLoginRequest);
+
+    void uploadUserAvatar(String avatarUrl);
 }

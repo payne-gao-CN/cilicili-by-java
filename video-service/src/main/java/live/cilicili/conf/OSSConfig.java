@@ -1,4 +1,4 @@
-package live.cilicili.config;
+package live.cilicili.conf;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author payne
- * @version 1.0
- * @Date 2022/4/22 14:03
+ * @Author: payne
+ * @createDate: 2022/9/13 10:48
+ * @description:
  */
 @Data
 @Configuration
@@ -30,4 +30,5 @@ public class OSSConfig {
         //创建OSS客户端对象
         return new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }
+
 }

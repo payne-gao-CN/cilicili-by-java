@@ -1,4 +1,4 @@
-package live.cilicili.config;
+package live.cilicili.conf;
 
 import com.aliyun.dysmsapi20170525.Client;
 import lombok.Data;

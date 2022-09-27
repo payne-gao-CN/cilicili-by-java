@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>live.cilicili</groupId>
     <artifactId>user-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 

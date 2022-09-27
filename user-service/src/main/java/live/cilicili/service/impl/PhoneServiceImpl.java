@@ -31,11 +31,11 @@ public class PhoneServiceImpl implements IPhoneService {
                 //接收短信的手机号码
                 .setPhoneNumbers(username)
                 //短信模板变量对应的实际值
-                .setTemplateParam("{\"code\":\"1234\"}");
+                .setTemplateParam("{\"code\":\"" + code + "\"}");
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {
             // 调用阿里云接口
-            //client.sendSmsWithOptions(sendSmsRequest, runtime);
+//            client.sendSmsWithOptions(sendSmsRequest, runtime);
         } catch (TeaException error) {
             log.error(error.message);
             return JsonData.buildResult(BizCodeEnum.SEND_PHONE_CODE_ERROR);

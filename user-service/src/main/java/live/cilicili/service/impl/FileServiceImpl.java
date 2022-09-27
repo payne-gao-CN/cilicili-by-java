@@ -1,9 +1,9 @@
 package live.cilicili.service.impl;
 
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.model.PutObjectResult;
-import live.cilicili.config.OSSConfig;
+import live.cilicili.conf.OSSConfig;
 import live.cilicili.service.IFileService;
+import live.cilicili.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,14 +19,16 @@ public class FileServiceImpl implements IFileService {
     @Override
     public String uploadUserAvatar(MultipartFile file) {
         OSS ossClient = ossConfig.initOssClient();
-        String originalFilename = file.getOriginalFilename();
+
+        String filename = CommonUtil.generateUUID() + ".jpg";
+
         try {
-            ossClient.putObject(ossConfig.getBucketName(), originalFilename, file.getInputStream());
+            ossClient.putObject(ossConfig.getBucketName(), filename, file.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {
             ossClient.shutdown();
         }
-        return null;
+        return "https://" + ossConfig.getBucketName() + "." + ossConfig.getEndpoint() + "/" + filename;
     }
 }

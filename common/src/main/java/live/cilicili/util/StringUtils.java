@@ -11,9 +11,10 @@ import java.util.Map;
 @Slf4j
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
-    private static final char SEPARATOR = '_';
+    public static final char SEPARATOR = '_';
     public static final String SEMICOLON = ";";
     private static final String ENCODE_UTF = "UTF-8";
+    public  static final String POINT = ".";
 
     public static String toString(Object o) {
         if (o == null) {

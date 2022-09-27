@@ -1,9 +1,8 @@
 package live.cilicili.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import live.cilicili.constant.CacheKey;
 import live.cilicili.enums.BizCodeEnum;
-import live.cilicili.enums.SendCodeEnum;
+import live.cilicili.interceptor.LoginInterceptor;
 import live.cilicili.mapper.UserMapper;
 import live.cilicili.model.LoginUser;
 import live.cilicili.model.UserDO;
@@ -47,6 +46,12 @@ public class UserServiceImpl implements IUserService {
 
     public static final String DEFAULT_AVATAR = "https://cilicili-useravatar.oss-cn-beijing.aliyuncs.com/default_avatar.png";
 
+
+    /**
+     * 用户注册
+     * @param request
+     * @return
+     */
     @Override
     public JsonData register(UserRegisterRequest request) {
         boolean checkCode = false;
@@ -115,7 +120,7 @@ public class UserServiceImpl implements IUserService {
 
         LoginUser loginUser = LoginUser.builder()
                 .id(userDO.getId())
-                .userName(userDO.getUserName())
+                .userName(userDO.getUsername())
                 .nickname(userDO.getNickname())
                 .avatar(userDO.getAvatar())
                 .build();
@@ -131,6 +136,19 @@ public class UserServiceImpl implements IUserService {
 
 
         return JsonData.buildSuccess(tokenMap);
+    }
+
+    /**
+     * 更新用户头像信息
+     * @param avatarUrl 用户头像URL
+     */
+    @Override
+    public void uploadUserAvatar(String avatarUrl){
+        LoginUser loginUser = LoginInterceptor.threadLocal.get();
+        UserDO userDO = new UserDO();
+        userDO.setAvatar(avatarUrl);
+        userDO.setId(loginUser.getId());
+        userMapper.updateById(userDO);
     }
 
     /**

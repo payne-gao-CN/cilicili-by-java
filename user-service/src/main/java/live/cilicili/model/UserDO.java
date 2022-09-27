@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("users")
+@TableName("cilicili_user")
 public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class UserDO implements Serializable {
      * 用户名
      */
     @TableField("user_name")
-    private String userName;
+    private String username;
 
     /**
      * 密码
