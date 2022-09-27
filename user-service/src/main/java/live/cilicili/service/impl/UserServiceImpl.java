@@ -147,10 +147,14 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void uploadUserAvatar(String avatarUrl){
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
+
         UserDO userDO = new UserDO();
         userDO.setAvatar(avatarUrl);
         userDO.setId(loginUser.getId());
+        userDO.setUpdatedAt(new Date());
+
         iFileService.removeAvatar(getUserDetail(loginUser.getId()).getAvatar());
+
         userMapper.updateById(userDO);
     }
 

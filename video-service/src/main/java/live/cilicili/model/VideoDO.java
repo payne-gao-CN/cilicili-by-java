@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author: payne
@@ -61,27 +62,33 @@ public class VideoDO implements Serializable {
     private String url;
 
     /**
-     * 地址
+     * 上传者
      */
     @TableField("upuser")
-    private String upuser;
+    private Long upuser;
+
+    /**
+     * 当前稿件状态
+     */
+    @TableField("state")
+    private String state;
 
     /**
      * 创建时间
      */
     @TableField("created_at")
-    private String createdAt;
+    private Date createdAt;
 
     /**
      * 修改时间
      */
     @TableField("updated_at")
-    private String updatedAt;
+    private Date updatedAt;
 
     /**
      * 删除时间
      */
     @TableField("deleted_at")
-    private String deletedAt;
+    private Date deletedAt;
 
 }
