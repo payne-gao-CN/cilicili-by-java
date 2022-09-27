@@ -23,15 +23,37 @@ public class VideoController {
     @Autowired
     private IFileService iFileService;
 
+    /**
+     * 上传视频文件
+     * @param file 视频文件
+     * @return 视频文件地址
+     */
     @RequestMapping("/uploadVideoFile")
     public JsonData uploadVideoFile(@RequestPart("videoFile") MultipartFile file){
         String fileUrl = iFileService.uploadVideoFile(file);
         return JsonData.buildSuccess(fileUrl);
     }
 
+    /**
+     * 创建视频信息
+     * @param request 视频相关信息
+     * @return 统一返回封装结果
+     */
     @RequestMapping("/createVideo")
     public JsonData createVideos(@RequestBody CreateVideoRequest request){
         iVideoService.createVideo(request);
         return JsonData.buildSuccess();
     }
+
+    /**
+     * 上传视频封面文件
+     * @param file 视频封面文件
+     * @return 视频封面文件地址
+     */
+    @RequestMapping("/uploadVideoCoverImg")
+    public JsonData uploadVideoCoverImg(@RequestPart("videoCoverImg") MultipartFile file){
+        String fileUrl = iFileService.uploadVideoCoverImg(file);
+        return JsonData.buildSuccess(fileUrl);
+    }
+
 }

@@ -9,4 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
     String uploadVideoFile(MultipartFile file);
+
+    String uploadVideoCoverImg(MultipartFile file);
 }

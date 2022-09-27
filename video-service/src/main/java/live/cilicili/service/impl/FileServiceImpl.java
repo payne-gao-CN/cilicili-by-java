@@ -3,6 +3,7 @@ package live.cilicili.service.impl;
 import com.aliyun.oss.OSS;
 import live.cilicili.conf.OSSConfig;
 import live.cilicili.service.IFileService;
+import live.cilicili.service.IOssService;
 import live.cilicili.util.CommonUtil;
 import live.cilicili.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,18 @@ import java.io.IOException;
 public class FileServiceImpl implements IFileService {
 
     @Autowired
-    private OSSConfig ossConfig;
+    private IOssService iOssService;
+
+    private static final String COVER_IMG_FOLDER = "cover_imf_folder";
 
     @Override
     public String uploadVideoFile(MultipartFile file) {
-        OSS ossClient = ossConfig.initOssClient();
-        String originalFilename = file.getOriginalFilename();
-        String[] split = originalFilename.split("\\.");
-        String videoName = CommonUtil.generateUUID();
-
-        String fileName = videoName + StringUtils.POINT + split[1];
-        try {
-            ossClient.putObject(ossConfig.getBucketName(), fileName, file.getInputStream());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }finally {
-            ossClient.shutdown();
-        }
-        return "https://" + ossConfig.getBucketName() + "." + ossConfig.getEndpoint() + "/" + fileName;
+        return iOssService.uploadFileToOss("",file);
     }
+
+    @Override
+    public String uploadVideoCoverImg(MultipartFile file) {
+        return iOssService.uploadFileToOss(COVER_IMG_FOLDER,file);
+    }
+
 }

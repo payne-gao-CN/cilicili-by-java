@@ -11,5 +11,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IVideoService {
 
-    JsonData createVideo(CreateVideoRequest request);
+    void createVideo(CreateVideoRequest request);
 }

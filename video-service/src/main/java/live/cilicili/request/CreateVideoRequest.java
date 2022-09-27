@@ -46,4 +46,11 @@ public class CreateVideoRequest {
     @ApiModelProperty(value = "类型")
     private String type;
 
+    /**
+     * 视频文件地址
+     */
+    @ApiModelProperty(value = "视频文件地址")
+    private String url;
+
+
 }
