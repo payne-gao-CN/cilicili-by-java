@@ -30,8 +30,6 @@ public class FileServiceImpl implements IFileService {
         String videoName = CommonUtil.generateUUID();
 
         String fileName = videoName + StringUtils.POINT + split[1];
-
-        System.out.println(fileName);
         try {
             ossClient.putObject(ossConfig.getBucketName(), fileName, file.getInputStream());
 

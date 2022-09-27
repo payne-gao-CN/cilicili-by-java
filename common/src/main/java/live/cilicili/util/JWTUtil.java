@@ -48,10 +48,8 @@ public class JWTUtil {
         Date endDate = new Date(System.currentTimeMillis() + EXPIRE);
 
         String token = Jwts.builder().setSubject(SUBJECT)
-                .claim("avatar", loginUser.getAvatar())
                 .claim("id", loginUser.getId())
                 .claim("user_name", loginUser.getUserName())
-                .claim("nick_name", loginUser.getNickname())
                 .setIssuedAt(new Date())
                 .setExpiration(endDate)
                 .signWith(SignatureAlgorithm.HS256, SECRET)

@@ -28,15 +28,4 @@ public class LoginUser {
      */
     private String userName;
 
-    /**
-     * 昵称
-     */
-    private String nickname;
-
-
-    /**
-     * 用户头像
-     */
-    private String avatar;
-
 }

@@ -8,6 +8,7 @@ import live.cilicili.model.LoginUser;
 import live.cilicili.model.UserDO;
 import live.cilicili.request.UserLoginRequest;
 import live.cilicili.request.UserRegisterRequest;
+import live.cilicili.service.IFileService;
 import live.cilicili.service.INotifyService;
 import live.cilicili.service.IUserService;
 import live.cilicili.util.CommonUtil;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private INotifyService iNotifyService;
+
+    @Autowired
+    private IFileService iFileService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -121,8 +125,6 @@ public class UserServiceImpl implements IUserService {
         LoginUser loginUser = LoginUser.builder()
                 .id(userDO.getId())
                 .userName(userDO.getUsername())
-                .nickname(userDO.getNickname())
-                .avatar(userDO.getAvatar())
                 .build();
 
         Map<String, Object> tokenMap = JWTUtil.generateWebToken(loginUser);
@@ -148,6 +150,7 @@ public class UserServiceImpl implements IUserService {
         UserDO userDO = new UserDO();
         userDO.setAvatar(avatarUrl);
         userDO.setId(loginUser.getId());
+        iFileService.removeAvatar(getUserDetail(loginUser.getId()).getAvatar());
         userMapper.updateById(userDO);
     }
 
@@ -158,5 +161,14 @@ public class UserServiceImpl implements IUserService {
      */
     public boolean checkPhoneOnlyOne(String username){
         return userMapper.selectOne(new QueryWrapper<UserDO>().eq("user_name", username)) != null;
+    }
+
+    /**
+     * 根据id获取用户详细信息
+     * @param id 用户id
+     * @return 用户在数据库中的详细信息
+     */
+    public UserDO getUserDetail(Long id){
+        return userMapper.selectOne(new QueryWrapper<UserDO>().eq("id", id));
     }
 }
