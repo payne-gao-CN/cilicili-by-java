@@ -6,6 +6,7 @@ import live.cilicili.interceptor.LoginInterceptor;
 import live.cilicili.mapper.UserMapper;
 import live.cilicili.model.LoginUser;
 import live.cilicili.model.UserDO;
+import live.cilicili.request.UserEditRequest;
 import live.cilicili.request.UserLoginRequest;
 import live.cilicili.request.UserRegisterRequest;
 import live.cilicili.service.IFileService;
@@ -15,6 +16,7 @@ import live.cilicili.util.CommonUtil;
 import live.cilicili.util.JWTUtil;
 import live.cilicili.util.JsonData;
 import live.cilicili.util.StringUtils;
+import live.cilicili.vo.UserDetailVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.BeanUtils;
@@ -158,7 +160,51 @@ public class UserServiceImpl implements IUserService {
         userMapper.updateById(userDO);
     }
 
-    /**
+  @Override
+  public JsonData getUserDetail() {
+      LoginUser loginUser = LoginInterceptor.threadLocal.get();
+      UserDO userDetail = getUserDetail(loginUser.getId());
+
+      UserDetailVO userDetailVO = new UserDetailVO();
+      BeanUtils.copyProperties(userDetail,userDetailVO);
+
+      return JsonData.buildSuccess(userDetailVO);
+  }
+
+  @Override
+  public void editUserDetail(UserEditRequest request) {
+
+      LoginUser loginUser = LoginInterceptor.threadLocal.get();
+      Long userId = loginUser.getId();
+
+      UserDO userDO = new UserDO();
+      BeanUtils.copyProperties(request,userDO);
+      userDO.setId(userId);
+
+      userMapper.updateById(userDO);
+  }
+
+  @Override
+  public void editUserPassword(String password) {
+      LoginUser loginUser = LoginInterceptor.threadLocal.get();
+      Long userid = loginUser.getId();
+
+      editUserPassword(password,userid);
+  }
+
+  public void editUserPassword(String password,Long userid){
+
+      UserDO userDetail = getUserDetail(userid);
+      String md5PassWord = Md5Crypt.md5Crypt(password.getBytes(), userDetail.getSecret());
+
+      UserDO userDO = new UserDO();
+      userDO.setPassword(md5PassWord);
+      userDO.setId(userid);
+
+      userMapper.updateById(userDO);
+  }
+
+  /**
      * 检查用户名唯一性
      * @param username 用户名
      * @return 是否唯一

@@ -2,6 +2,7 @@ package live.cilicili.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import live.cilicili.request.UserEditRequest;
 import live.cilicili.request.UserLoginRequest;
 import live.cilicili.request.UserRegisterRequest;
 import live.cilicili.service.IFileService;
@@ -46,6 +47,28 @@ public class UserController {
     @RequestMapping("/login")
     public JsonData userLogin(@RequestBody UserLoginRequest userLoginRequest){
         return iUserService.login(userLoginRequest);
+    }
+
+    @ApiOperation("获取用户详细信息")
+    @GetMapping("/detail")
+    public JsonData getUserDetail(){
+        return iUserService.getUserDetail();
+    }
+
+
+    @ApiOperation("修改用户相关信息")
+    @RequestMapping("editUserDetail")
+    public JsonData editUserDetail(@RequestBody UserEditRequest request){
+        iUserService.editUserDetail(request);
+        return JsonData.buildSuccess();
+    }
+
+
+    @ApiOperation("修改用户密码")
+    @RequestMapping("/editUserPassword")
+    public JsonData editUserPassword(@RequestParam("password") String password){
+        iUserService.editUserPassword(password);
+        return JsonData.buildSuccess();
     }
 
 }

@@ -47,7 +47,7 @@ public class UserDO implements Serializable {
      * 状态
      */
     @TableField(value = "status")
-    private String status = "active";
+    private String status;
 
     /**
      * 用户头像
