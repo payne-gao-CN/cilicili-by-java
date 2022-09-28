@@ -1,5 +1,6 @@
 package live.cilicili.controller;
 
+import live.cilicili.enums.BizCodeEnum;
 import live.cilicili.request.CreateVideoRequest;
 import live.cilicili.service.IFileService;
 import live.cilicili.service.IVideoService;
@@ -54,6 +55,20 @@ public class VideoController {
     public JsonData uploadVideoCoverImg(@RequestPart("videoCoverImg") MultipartFile file){
         String fileUrl = iFileService.uploadVideoCoverImg(file);
         return JsonData.buildSuccess(fileUrl);
+    }
+
+    /**
+     * 修稿视频封面图
+     * @param file 上传的新的封面图
+     * @return 统一封装返回类
+     */
+    @PutMapping("/updateVideoCoverImg")
+    public JsonData updateVideoCoverImg(@RequestPart("videoCoverImg") MultipartFile file , Long cvid){
+        if (iVideoService.checkUserAndUp(cvid)){
+            iVideoService.updateVideoCoverImg(file, cvid);
+            return JsonData.buildSuccess();
+        }
+        return JsonData.buildResult(BizCodeEnum.NO_AUTHORITY);
     }
 
 }

@@ -4,7 +4,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -25,7 +24,6 @@ public class OSSConfig {
 
     private String bucketName;
 
-    @Bean
     public OSS initOssClient(){
         //创建OSS客户端对象
         return new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);

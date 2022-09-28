@@ -41,7 +41,7 @@ public class FileServiceImpl implements IFileService {
     }
 
     @Override
-    public String removeAvatar(String fileName) {
+    public void removeAvatar(String fileName) {
         OSS ossClient = ossConfig.initOssClient();
         String[] fileNames = fileName.split("/");
         try {
@@ -60,6 +60,5 @@ public class FileServiceImpl implements IFileService {
                 ossClient.shutdown();
             }
         }
-        return "https://" + ossConfig.getBucketName() + "." + ossConfig.getEndpoint() + "/" + fileName;
     }
 }

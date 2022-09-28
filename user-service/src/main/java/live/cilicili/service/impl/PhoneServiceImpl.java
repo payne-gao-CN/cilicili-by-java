@@ -35,7 +35,7 @@ public class PhoneServiceImpl implements IPhoneService {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {
             // 调用阿里云接口
-//            client.sendSmsWithOptions(sendSmsRequest, runtime);
+            client.sendSmsWithOptions(sendSmsRequest, runtime);
         } catch (TeaException error) {
             log.error(error.message);
             return JsonData.buildResult(BizCodeEnum.SEND_PHONE_CODE_ERROR);

@@ -4,6 +4,9 @@ import lombok.Getter;
 
 public enum BizCodeEnum {
 
+    /**
+     * 用户返回频繁请求的错误
+     */
     OPS_REPEAT(110001,"重复操作"),
 
 
@@ -15,7 +18,9 @@ public enum BizCodeEnum {
     USER_NOT_EXIST(310006,"用户不存在"),
     PASSWORD_NO_TRUE(310007,"密码错误"),
     USER_TOKEN_INVALID(310008,"用户登录过期"),
-    USER_NO_LOGIN(310009,"用户未登录")
+    USER_NO_LOGIN(310009,"用户未登录"),
+
+    NO_AUTHORITY(910001,"无该权限"),
     ;
     @Getter
     private Integer code;
