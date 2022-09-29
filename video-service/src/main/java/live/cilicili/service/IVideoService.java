@@ -1,7 +1,6 @@
 package live.cilicili.service;
 
 import live.cilicili.request.CreateVideoRequest;
-import live.cilicili.vo.VideoVO;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -30,11 +29,4 @@ public interface IVideoService {
    * @return 是够拥有修改稿件信息的权限
    */
   boolean checkUserAndUp(Long cvid);
-
-  /**
-   * 根据稿件ID获取稿件详细信息()
-   * @param cvid 稿件id
-   * @return 视频详细信息
-   */
-  VideoVO getVideo(Long cvid);
 }

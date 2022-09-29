@@ -1,5 +1,6 @@
 package live.cilicili.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 /**
@@ -19,16 +20,19 @@ public class UserDetailVO {
   /**
    * 昵称
    */
+  @TableField("nick_name")
   private String nickname;
 
   /**
    * 用户头像
    */
+  @TableField("avatar")
   private String avatar;
 
   /**
    * 用户签名
    */
+  @TableField("slogan")
   private String slogan;
 
 }
