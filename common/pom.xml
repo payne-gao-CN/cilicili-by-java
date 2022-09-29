@@ -132,6 +132,10 @@
             <version>1.18.16</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.sejda.imageio</groupId>
+            <artifactId>webp-imageio</artifactId>
+        </dependency>
     </dependencies>
 
 

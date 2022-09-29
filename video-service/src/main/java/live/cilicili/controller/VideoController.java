@@ -5,6 +5,7 @@ import live.cilicili.request.CreateVideoRequest;
 import live.cilicili.service.IFileService;
 import live.cilicili.service.IVideoService;
 import live.cilicili.util.JsonData;
+import live.cilicili.vo.VideoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,7 +59,7 @@ public class VideoController {
     }
 
     /**
-     * 修稿视频封面图
+     * 修改视频封面图
      * @param file 上传的新的封面图
      * @return 统一封装返回类
      */
@@ -70,5 +71,12 @@ public class VideoController {
         }
         return JsonData.buildResult(BizCodeEnum.NO_AUTHORITY);
     }
+
+    @GetMapping("/getVideoDetail")
+    public JsonData getVideo(@RequestParam("cvid") Long cvid){
+        VideoVO video = iVideoService.getVideo(cvid);
+        return JsonData.buildSuccess(video);
+    }
+
 
 }

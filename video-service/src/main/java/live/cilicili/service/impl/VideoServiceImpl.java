@@ -1,7 +1,6 @@
 package live.cilicili.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import java.util.Date;
 import live.cilicili.enums.VideoStateEnum;
 import live.cilicili.interceptor.LoginInterceptor;
 import live.cilicili.mapper.VideoMapper;
@@ -10,10 +9,13 @@ import live.cilicili.model.VideoDO;
 import live.cilicili.request.CreateVideoRequest;
 import live.cilicili.service.IFileService;
 import live.cilicili.service.IVideoService;
+import live.cilicili.vo.VideoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
 
 /**
  * @Author: payne
@@ -64,6 +66,14 @@ public class VideoServiceImpl implements IVideoService {
       LoginUser loginUser = LoginInterceptor.threadLocal.get();
       VideoDO videoDO = getVideoDetailById(cvid);
       return loginUser.getId().equals(videoDO.getUpuser());
+    }
+
+    @Override
+    public VideoVO getVideo(Long cvid) {
+        VideoDO videoDetail = getVideoDetailById(cvid);
+        VideoVO videoVO = new VideoVO();
+        BeanUtils.copyProperties(videoDetail,videoVO);
+        return videoVO;
     }
 
     public VideoDO getVideoDetailById(Long id){
